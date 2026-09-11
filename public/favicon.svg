@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFD700"/>
+      <stop offset="100%" stop-color="#C9A227"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="64" height="64" rx="14" fill="#0B1F3A"/>
+
+  <!-- House Icon -->
+  <path 
+    d="M16 30 L32 18 L48 30 V48 H38 V38 H26 V48 H16 Z" 
+    fill="url(#gold)"
+  />
+
+  <!-- Letter C -->
+  <text 
+    x="32" 
+    y="42" 
+    text-anchor="middle" 
+    font-size="22" 
+    font-family="Poppins, Arial, sans-serif" 
+    font-weight="700" 
+    fill="#0B1F3A">
+    C
+  </text>
+
+  <!-- Sparkle -->
+  <path 
+    d="M50 12 L52 16 L56 18 L52 20 L50 24 L48 20 L44 18 L48 16 Z" 
+    fill="#FFD700"
+  />
+</svg>
