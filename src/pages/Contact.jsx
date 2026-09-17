@@ -6,6 +6,9 @@ import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import LocationOnSharpIcon from "@mui/icons-material/LocationOnSharp";
 import { motion } from "framer-motion";
 
+// Google Ads Conversion Tracking
+import { trackWhatsAppClick, trackPhoneCallClick } from "../utils/conversions";
+
 const Contact = () => {
   const phone = "03350566349";
 
@@ -44,6 +47,7 @@ const Contact = () => {
           transition={{ duration: 0.4 }}
           whileHover={{ scale: 1.05 }}
           aria-label="Call PrimeClean Services"
+          onClick={trackPhoneCallClick}
         >
           <AddIcCallSharpIcon className="icon" />
 
@@ -64,6 +68,7 @@ const Contact = () => {
           transition={{ duration: 0.5 }}
           whileHover={{ scale: 1.05 }}
           aria-label="Contact PrimeClean Services on WhatsApp"
+          onClick={trackWhatsAppClick}
         >
           <WhatsAppIcon className="icon" />
 

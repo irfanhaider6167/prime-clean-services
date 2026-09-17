@@ -19,6 +19,9 @@ import LayersIcon from "@mui/icons-material/Layers";
 import BedIcon from "@mui/icons-material/Bed";
 import WaterDropIcon from "@mui/icons-material/WaterDrop";
 
+// Google Ads Conversion Tracking
+import { trackWhatsAppClick } from "../utils/conversions";
+
 const WHATSAPP_NUMBER = "923350566349";
 
 const services = [
@@ -69,6 +72,14 @@ const ActionAreaCard = () => {
 
   const handleCardClick = (slug) => {
     navigate(`/services/${slug}`);
+  };
+
+  const handleWhatsAppClick = (e) => {
+    // Prevent the card click from navigating to service page
+    e.stopPropagation();
+
+    // Google Ads WhatsApp conversion
+    trackWhatsAppClick();
   };
 
   return (
@@ -131,7 +142,7 @@ const ActionAreaCard = () => {
                     variant="contained"
                     className="whatsappBtn"
                     aria-label={`Contact PrimeClean Services for ${service.name}`}
-                    onClick={(e) => e.stopPropagation()}
+                    onClick={handleWhatsAppClick}
                   >
                     WhatsApp for Quote
                   </Button>

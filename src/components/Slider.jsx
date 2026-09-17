@@ -15,6 +15,9 @@ import "swiper/css/pagination";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 
+// Google Ads Conversion Tracking
+import { trackWhatsAppClick } from "../utils/conversions";
+
 const WHATSAPP_NUMBER = "923350566349";
 
 const slides = [
@@ -64,6 +67,18 @@ const Slider = () => {
   const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
     whatsappMessage,
   )}`;
+
+  /**
+   * WhatsApp click handler
+   * Fires Google Ads conversion first, then opens WhatsApp.
+   */
+  const handleWhatsAppClick = () => {
+    try {
+      trackWhatsAppClick();
+    } catch (error) {
+      console.error("WhatsApp conversion tracking error:", error);
+    }
+  };
 
   return (
     <Wrapper>
@@ -152,15 +167,19 @@ const Slider = () => {
                     </div>
 
                     <div className="heroButtons">
+                      {/* WhatsApp CTA */}
                       <a
                         href={whatsappUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="primaryButton"
+                        onClick={handleWhatsAppClick}
+                        aria-label={`Get a free quote for ${slide.service} on WhatsApp`}
                       >
                         Get a Free Quote
                       </a>
 
+                      {/* Services */}
                       <NavLink to="/services" className="secondaryButton">
                         Explore Services
                       </NavLink>
@@ -180,6 +199,7 @@ const Slider = () => {
           ))}
         </Swiper>
 
+        {/* Navigation */}
         <div className="navigationButtons">
           <IconButton
             className="navigationButton"
@@ -198,6 +218,7 @@ const Slider = () => {
           </IconButton>
         </div>
 
+        {/* Pagination */}
         <div className="customPagination" />
       </section>
     </Wrapper>

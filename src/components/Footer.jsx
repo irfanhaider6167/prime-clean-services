@@ -11,6 +11,8 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 
+import { trackWhatsAppClick, trackPhoneCallClick } from "../utils/conversions";
+
 const footerLinks = [
   { name: "Home", path: "/" },
   { name: "About Us", path: "/about" },
@@ -105,6 +107,7 @@ const Footer = () => {
               href={`tel:+${INTERNATIONAL_PHONE}`}
               className="footerContact"
               aria-label={`Call PrimeClean Services at ${PHONE_NUMBER}`}
+              onClick={trackPhoneCallClick}
             >
               <AddIcCallIcon />
               <span>{PHONE_NUMBER}</span>
@@ -117,6 +120,7 @@ const Footer = () => {
               rel="noopener noreferrer"
               className="footerContact"
               aria-label="Contact PrimeClean Services on WhatsApp"
+              onClick={trackWhatsAppClick}
             >
               <WhatsAppIcon />
               <span>WhatsApp</span>

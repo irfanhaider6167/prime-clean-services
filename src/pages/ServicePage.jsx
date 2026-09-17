@@ -11,6 +11,9 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import CleaningServicesIcon from "@mui/icons-material/CleaningServices";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
+// Google Ads Conversion Tracking
+import { trackWhatsAppClick, trackPhoneCallClick } from "../utils/conversions";
+
 const WHATSAPP_NUMBER = "923350566349";
 
 const services = {
@@ -202,6 +205,7 @@ const ServicePage = () => {
             </Typography>
 
             <div className="heroButtons">
+              {/* WHATSAPP */}
               <Button
                 component="a"
                 href={whatsappUrl}
@@ -210,15 +214,18 @@ const ServicePage = () => {
                 variant="contained"
                 startIcon={<WhatsAppIcon />}
                 className="whatsappButton"
+                onClick={trackWhatsAppClick}
               >
                 Get a Free Quote
               </Button>
 
+              {/* CALL */}
               <Button
                 component="a"
                 href="tel:+923350566349"
                 variant="outlined"
                 className="callButton"
+                onClick={trackPhoneCallClick}
               >
                 Call Now
               </Button>
@@ -391,6 +398,7 @@ const ServicePage = () => {
             serves customers across Islamabad and Rawalpindi.
           </Typography>
 
+          {/* WHATSAPP CTA */}
           <Button
             component="a"
             href={whatsappUrl}
@@ -399,6 +407,7 @@ const ServicePage = () => {
             variant="contained"
             startIcon={<WhatsAppIcon />}
             className="ctaButton"
+            onClick={trackWhatsAppClick}
           >
             WhatsApp for Quote
           </Button>

@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
+import { trackWhatsAppClick, trackPhoneCallClick } from "../utils/conversions";
 
 // Icons
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
@@ -26,6 +27,7 @@ const FloatingButtons = () => {
         rel="noopener noreferrer"
         aria-label="Contact PrimeClean Services on WhatsApp"
         className="whatsapp"
+        onClick={trackWhatsAppClick}
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{
@@ -49,6 +51,7 @@ const FloatingButtons = () => {
         href={`tel:+${PHONE_NUMBER}`}
         aria-label="Call PrimeClean Services"
         className="call"
+        onClick={trackPhoneCallClick}
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{
