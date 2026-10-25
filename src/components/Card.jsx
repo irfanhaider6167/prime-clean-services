@@ -7,7 +7,6 @@ import {
   Box,
   Button,
 } from "@mui/material";
-import SolarPowerIcon from "@mui/icons-material/SolarPower";
 
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -19,6 +18,7 @@ import WeekendIcon from "@mui/icons-material/Weekend";
 import LayersIcon from "@mui/icons-material/Layers";
 import BedIcon from "@mui/icons-material/Bed";
 import WaterDropIcon from "@mui/icons-material/WaterDrop";
+import SolarPowerIcon from "@mui/icons-material/SolarPower";
 
 // Google Ads Conversion Tracking
 import { trackWhatsAppClick } from "../utils/conversions";
@@ -38,7 +38,7 @@ const services = [
     name: "Sofa Cleaning",
     slug: "sofa-cleaning",
     description:
-      "Professional sofa cleaning to remove dust, dirt and stains and keep your sofas fresh, clean and comfortable.",
+      "Professional sofa cleaning to remove dust, dirt and suitable stains and help keep your sofas fresh and clean.",
     icon: <WeekendIcon />,
     imgurl: "/images/sofa-cleaning.webp",
   },
@@ -46,7 +46,7 @@ const services = [
     name: "Carpet Cleaning",
     slug: "carpet-cleaning",
     description:
-      "Deep carpet cleaning services to remove accumulated dust, dirt and stains and restore a cleaner appearance.",
+      "Carpet cleaning services to remove accumulated dust, dirt and suitable stains and restore a cleaner appearance.",
     icon: <LayersIcon />,
     imgurl: "/images/carpet-cleaning.webp",
   },
@@ -54,7 +54,7 @@ const services = [
     name: "Mattress Cleaning",
     slug: "mattress-cleaning",
     description:
-      "Thorough mattress cleaning to remove dust, dirt and unwanted buildup for a fresher and cleaner sleeping environment.",
+      "Mattress cleaning to remove surface dust, dirt and buildup for a fresher sleeping environment.",
     icon: <BedIcon />,
     imgurl: "/images/mattress-cleaning.webp",
   },
@@ -62,7 +62,7 @@ const services = [
     name: "Water Tank Cleaning",
     slug: "water-tank-cleaning",
     description:
-      "Professional water tank cleaning for underground and overhead tanks to help maintain a cleaner water storage system.",
+      "Professional cleaning for underground and overhead water tanks to help maintain a cleaner water storage system.",
     icon: <WaterDropIcon />,
     imgurl: "/images/water-tank-cleaning.webp",
   },
@@ -70,7 +70,7 @@ const services = [
     name: "Solar Panel Cleaning",
     slug: "solar-panel-cleaning",
     description:
-      "Professional solar panel cleaning services to remove dust, dirt and buildup, helping maintain solar panel efficiency for residential and commercial properties.",
+      "Solar panel cleaning to remove accumulated dust and dirt from residential and commercial solar panels.",
     icon: <SolarPowerIcon />,
     imgurl: "/images/solar-panel-cleaning.webp",
   },
@@ -81,13 +81,18 @@ const ActionAreaCard = () => {
 
   const handleCardClick = (slug) => {
     navigate(`/services/${slug}`);
+    window.scrollTo({ top: 0, behavior: "auto" });
   };
 
-  const handleWhatsAppClick = (e) => {
-    // Prevent the card click from navigating to service page
-    e.stopPropagation();
+  const handleCardKeyDown = (event, slug) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      handleCardClick(slug);
+    }
+  };
 
-    // Google Ads WhatsApp conversion
+  const handleWhatsAppClick = () => {
+    // Google Ads WhatsApp conversion tracking
     trackWhatsAppClick();
   };
 
@@ -96,26 +101,34 @@ const ActionAreaCard = () => {
       <Box
         component="section"
         className="cardContainer"
-        aria-label="PrimeClean Services"
+        aria-label="PrimeClean cleaning services"
       >
         {services.map((service, index) => {
-          const message = `Hi, I am interested in ${service.name} service. Please share the details and quotation.`;
+          const message =
+            `Hi PrimeClean Services, I am interested in ${service.name} ` +
+            "service in Islamabad/Rawalpindi. Please share the details and quotation.";
+
+          const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
           return (
             <motion.div
-              key={service.name}
-              initial={{ opacity: 0, y: 40 }}
+              key={service.slug}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{
                 duration: 0.4,
                 delay: index * 0.05,
               }}
-              whileHover={{ y: -8 }}
+              whileHover={{ y: -6 }}
               className="cardWrapper"
+              role="link"
+              tabIndex={0}
+              aria-label={`View ${service.name} service details`}
               onClick={() => handleCardClick(service.slug)}
+              onKeyDown={(event) => handleCardKeyDown(event, service.slug)}
             >
-              <Card className="serviceCard">
+              <Card className="serviceCard" elevation={0}>
                 <CardMedia
                   component="img"
                   image={service.imgurl}
@@ -137,24 +150,38 @@ const ActionAreaCard = () => {
                     {service.name}
                   </Typography>
 
-                  <Typography className="serviceDescription">
+                  <Typography component="p" className="serviceDescription">
                     {service.description}
                   </Typography>
 
                   <Button
                     component="a"
-                    href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-                      message,
-                    )}`}
+                    href={whatsappUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     variant="contained"
                     className="whatsappBtn"
-                    aria-label={`Contact PrimeClean Services for ${service.name}`}
-                    onClick={handleWhatsAppClick}
+                    aria-label={`Get a WhatsApp quotation for ${service.name}`}
+                    onClick={(event) => {
+                      // WhatsApp click should not navigate to the card page
+                      event.stopPropagation();
+                      handleWhatsAppClick();
+                    }}
+                    onKeyDown={(event) => {
+                      // Keep keyboard activation on the WhatsApp link
+                      event.stopPropagation();
+                    }}
                   >
                     WhatsApp for Quote
                   </Button>
+
+                  <Typography
+                    component="span"
+                    className="detailsHint"
+                    aria-hidden="true"
+                  >
+                    View Service Details →
+                  </Typography>
                 </CardContent>
               </Card>
             </motion.div>
@@ -170,32 +197,47 @@ export default ActionAreaCard;
 /* ================= STYLE ================= */
 
 const Wrapper = styled.section`
-  padding: 10px 20px 60px 20px;
+  width: 100%;
+  padding: 10px 20px 60px;
   background: linear-gradient(180deg, #f9fafb, #eef2f7);
 
   .cardContainer {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: stretch;
     gap: 2rem;
+    width: 100%;
     max-width: 1300px;
     margin: 0 auto;
   }
 
   .cardWrapper {
+    width: 340px;
+    display: flex;
     cursor: pointer;
+    border-radius: 18px;
+    outline-offset: 4px;
+  }
+
+  .cardWrapper:focus-visible {
+    outline: 3px solid #087f72;
   }
 
   .serviceCard {
-    width: 340px;
+    width: 100%;
     min-height: 500px;
     display: flex;
     flex-direction: column;
-    border-radius: 18px !important;
     overflow: hidden;
-    background: #fff !important;
+    border-radius: 18px !important;
+    background: #ffffff !important;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08) !important;
-    transition: 0.3s ease;
+    transition: box-shadow 0.3s ease;
+  }
+
+  .cardWrapper:hover .serviceCard {
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.12) !important;
   }
 
   .serviceImage {
@@ -221,9 +263,10 @@ const Wrapper = styled.section`
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
     border-radius: 50%;
     background: linear-gradient(135deg, #25d366, #16a34a);
-    color: white;
+    color: #ffffff;
     box-shadow: 0 8px 18px rgba(37, 211, 102, 0.25);
   }
 
@@ -232,42 +275,59 @@ const Wrapper = styled.section`
   }
 
   .serviceTitle {
-    font-weight: 700 !important;
+    margin-bottom: 12px !important;
     color: #111827;
     text-align: center;
-    margin-bottom: 12px !important;
     font-size: 23px !important;
+    font-weight: 700 !important;
     line-height: 1.3;
   }
 
   .serviceDescription {
+    margin-bottom: 20px !important;
     color: #6b7280;
     text-align: center;
     font-size: 15px;
     line-height: 1.7;
-    margin-bottom: 20px !important;
   }
 
   .whatsappBtn {
+    width: 100%;
     margin-top: auto !important;
     background: #25d366 !important;
-    color: white !important;
+    color: #ffffff !important;
     font-weight: 600 !important;
     text-transform: none !important;
     border-radius: 8px !important;
-    padding: 10px 20px !important;
+    padding: 10px 16px !important;
   }
 
   .whatsappBtn:hover {
     background: #1ebe5d !important;
   }
 
-  @media (max-width: 768px) {
-    padding: 60px 15px;
+  .detailsHint {
+    margin-top: 15px;
+    color: #087f72;
+    font-size: 13px;
+    font-weight: 700;
+    text-align: center;
+  }
 
-    .serviceCard {
+  @media (max-width: 768px) {
+    padding: 30px 15px 45px;
+
+    .cardContainer {
+      gap: 22px;
+    }
+
+    .cardWrapper {
       width: 100%;
       max-width: 400px;
+    }
+
+    .serviceCard {
+      min-height: 0;
     }
 
     .serviceImage {
@@ -276,6 +336,9 @@ const Wrapper = styled.section`
   }
 
   @media (max-width: 480px) {
+    padding-right: 8px;
+    padding-left: 8px;
+
     .serviceTitle {
       font-size: 21px !important;
     }
