@@ -156,6 +156,34 @@ const services = {
       "Islamabad & Rawalpindi coverage",
     ],
   },
+  "solar-panel-cleaning": {
+    title: "Solar Panel Cleaning Services in Islamabad & Rawalpindi",
+    shortTitle: "Solar Panel Cleaning",
+    description:
+      "Professional solar panel cleaning services for homes and commercial properties. We remove dust, dirt and accumulated buildup from solar panels to help maintain their cleaning and performance.",
+
+    image: "/images/solar-panel-cleaning.webp",
+
+    beforeImage: "/images/solar-panel-cleaning-before.webp",
+    afterImage: "/images/solar-panel-cleaning-after.webp",
+
+    included: [
+      "Residential solar panel cleaning",
+      "Commercial solar panel cleaning",
+      "Dust and dirt removal",
+      "Solar panel surface cleaning",
+      "Careful cleaning process",
+      "Final inspection",
+    ],
+
+    benefits: [
+      "Professional cleaning team",
+      "Suitable for residential solar systems",
+      "Suitable for commercial solar systems",
+      "Helps maintain solar panel performance",
+      "Islamabad & Rawalpindi coverage",
+    ],
+  },
 };
 
 const ServicePage = () => {

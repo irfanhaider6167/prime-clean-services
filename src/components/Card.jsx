@@ -7,6 +7,7 @@ import {
   Box,
   Button,
 } from "@mui/material";
+import SolarPowerIcon from "@mui/icons-material/SolarPower";
 
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -64,6 +65,14 @@ const services = [
       "Professional water tank cleaning for underground and overhead tanks to help maintain a cleaner water storage system.",
     icon: <WaterDropIcon />,
     imgurl: "/images/water-tank-cleaning.webp",
+  },
+  {
+    name: "Solar Panel Cleaning",
+    slug: "solar-panel-cleaning",
+    description:
+      "Professional solar panel cleaning services to remove dust, dirt and buildup, helping maintain solar panel efficiency for residential and commercial properties.",
+    icon: <SolarPowerIcon />,
+    imgurl: "/images/solar-panel-cleaning.webp",
   },
 ];
 

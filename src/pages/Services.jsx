@@ -18,7 +18,7 @@ const Services = () => {
         PrimeClean Services provides professional and reliable cleaning
         solutions for homes and properties in Islamabad and Rawalpindi. Our
         services include home deep cleaning, sofa cleaning, carpet cleaning,
-        mattress cleaning and water tank cleaning.
+        mattress cleaning, water tank cleaning, and solar panel cleaning.
       </Typography>
 
       {/* Services */}

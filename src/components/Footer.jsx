@@ -26,6 +26,7 @@ const services = [
   "Carpet Cleaning",
   "Mattress Cleaning",
   "Water Tank Cleaning",
+  "Solar Panel Cleaning",
 ];
 
 const PHONE_NUMBER = "03350566349";
